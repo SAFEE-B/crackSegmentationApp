@@ -1,5 +1,5 @@
 # Model weights
-backend/best_model/
+
 *.pdparams
 *.pdopt
 
