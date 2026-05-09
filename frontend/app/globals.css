@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --amber:        #f59e0b;
+  --amber-dim:    #b45309;
+  --amber-faint:  #78400a;
+  --amber-glow:   rgba(245,158,11,0.12);
+  --amber-glow-s: rgba(245,158,11,0.32);
+  --bg:           #0a0a0a;
+  --bg-mid:       #111111;
+  --bg-panel:     #0e0e0e;
+  --bg-border:    #1e1e1e;
+  --bg-border-hi: #2e2e2e;
+  --green:        #22c55e;
+  --green-glow:   rgba(34,197,94,0.3);
+  --red:          #ef4444;
+  --txt-hi:       #ede5d8;
+  --txt-mid:      #5e574f;
+  --txt-lo:       #2a2724;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: var(--bg); height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--txt-hi);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* ── Grain ──────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 0.55;
+}
+
+/* ── Scan lines ─────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px, transparent 3px,
+    rgba(245,158,11,0.018) 3px, rgba(245,158,11,0.018) 4px
+  );
+  pointer-events: none; z-index: 9998;
+}
+
+/* ── Keyframes ──────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity:0; } to { opacity:1; }
+}
+@keyframes slideL {
+  from { opacity:0; transform:translateX(-20px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+@keyframes slideR {
+  from { opacity:0; transform:translateX(20px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+@keyframes wipeReveal {
+  from { clip-path:inset(0 100% 0 0); }
+  to   { clip-path:inset(0 0% 0 0); }
+}
+@keyframes blink {
+  0%,100% { opacity:1; } 50% { opacity:0.15; }
+}
+@keyframes spin360 {
+  to { transform:rotate(360deg); }
+}
+@keyframes scanBeam {
+  0%   { top:-2px; opacity:0; }
+  4%   { opacity:1; }
+  96%  { opacity:1; }
+  100% { top:100%; opacity:0; }
+}
+@keyframes pulseGlow {
+  0%,100% { box-shadow:0 0 0 rgba(245,158,11,0); }
+  50%      { box-shadow:0 0 24px rgba(245,158,11,0.3); }
+}
+@keyframes headerIn {
+  from { opacity:0; transform:translateY(-6px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes shimmer {
+  from { transform:translateX(-100%); }
+  to   { transform:translateX(100%); }
+}
+
+/* ── Animation classes ──────────────────────────── */
+.a-in   { animation: fadeIn  0.35s ease both; }
+.a-up   { animation: fadeUp  0.5s  cubic-bezier(0.16,1,0.3,1) both; }
+.a-sl   { animation: slideL  0.55s cubic-bezier(0.16,1,0.3,1) both; }
+.a-sr   { animation: slideR  0.55s cubic-bezier(0.16,1,0.3,1) both; }
+.a-hdr  { animation: headerIn 0.45s cubic-bezier(0.16,1,0.3,1) both; }
+
+.d0  { animation-delay:0ms; }
+.d1  { animation-delay:80ms; }
+.d2  { animation-delay:160ms; }
+.d3  { animation-delay:240ms; }
+.d4  { animation-delay:320ms; }
+.d5  { animation-delay:400ms; }
+
+/* ── Fonts ──────────────────────────────────────── */
+.fm { font-family:'Share Tech Mono', monospace; }
+.fd { font-family:'Barlow Condensed', sans-serif; font-weight:900; letter-spacing:0.04em; }
+
+/* ── Range slider ───────────────────────────────── */
+input[type=range] { appearance:none; background:transparent; cursor:pointer; width:100%; }
+input[type=range]::-webkit-slider-thumb {
+  appearance:none; width:10px; height:10px;
+  background:var(--amber); border:1px solid var(--amber-dim);
+  box-shadow:0 0 6px var(--amber-glow-s);
+  transform:rotate(45deg); cursor:pointer;
+}
+input[type=range]::-moz-range-thumb {
+  width:10px; height:10px; border-radius:0;
+  background:var(--amber); border:1px solid var(--amber-dim);
+  box-shadow:0 0 6px var(--amber-glow-s);
+  transform:rotate(45deg); cursor:pointer;
+}
+
+/* ── Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--bg-border-hi); }
