@@ -1,0 +1,23 @@
+# Model weights
+backend/best_model/
+*.pdparams
+*.pdopt
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+venv/
+.venv/
+
+# Node
+frontend/node_modules/
+frontend/.next/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
