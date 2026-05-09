@@ -4,3 +4,4 @@ python-multipart
 pillow
 paddlepaddle==3.0.0
 paddleseg
+numpy<2.0
